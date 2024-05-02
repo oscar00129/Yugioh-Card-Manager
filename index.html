@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yugioh card manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Yugioh Collection Manager</h1>
+        <div class="main-container">
+            <div class="card-view">
+                <img :src="cardViewing && cardViewing.card_images && cardViewing.card_images[0].image_url ? cardViewing.card_images[0].image_url : 'Yugioh_Card_Back.jpg'" alt="">
+                <h3>{{ cardViewing.name || 'Card Name' }}</h3>
+                <p>{{ cardViewing.race && cardViewing.type ? `${cardViewing.race}/${cardViewing.type}` : '' }}</p>
+                <p class="card-desc" :class="cardViewing.type == 'Normal Monster' ? 'italic' : ''">{{ cardViewing.desc || 'Card Description' }}</p>
+                <div class="battle-stats">
+                    <p>{{cardViewing.atk ? `ATK/${cardViewing.atk}` : '' }}</p>
+                    <p>{{cardViewing.def ? `DEF/${cardViewing.def}` : '' }}</p>
+                    <p>{{cardViewing.linkval ? `LINK -${cardViewing.linkval}` : '' }}</p>
+                </div>
+            </div>
+            <div class="your-cards">
+                <h3>Your Cards</h3>
+                <div>
+                    <label for="txtNameYours">Card Name: </label>
+                    <input type="text" name="txtNameYours" id="txtNameYours" placeholder="Search" v-model="searchTextYours" @input="searchCardYours()">
+                </div>
+                <div class="cards-container" @dragover="$event.preventDefault()" @drop="dropCard($event)">
+                    <div v-for="(card, index) in yourCards" class="card-container"  @click="clickCard(card)">
+                        <img :src="card.card_images[0].image_url_small" :alt="card.name" class="card">
+                    </div>
+                </div>
+            </div>
+            <div class="all-cards">
+                <h3>All Cards</h3>
+                <div>
+                    <label for="txtName">Card Name: </label>
+                    <input type="text" name="txtName" id="txtName" placeholder="Search" v-model="searchTextAll" @change="searchCardAll()">
+                </div>
+                <div class="cards-container">
+                    <div v-for="card in displayedCards" class="card-container" @click="clickCard(card)" draggable="true" @dragstart="dragCard(card)">
+                        <img :src="card.card_images[0].image_url_small" :alt="card.name" class="card">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="javascript.js"></script>
+</body>
+</html>
