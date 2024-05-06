@@ -27,8 +27,13 @@
                     <label for="txtNameYours">Card Name: </label>
                     <input type="text" name="txtNameYours" id="txtNameYours" placeholder="Search" v-model="searchTextYours" @input="searchCardYours()">
                 </div>
+                <div>
+                    <label class="button" @click="exportCollection()">Export</label>
+                    <label for="btnImport" class="button">Import</label>
+                    <input id="btnImport" type="file" style="display: none;" accept=".json" @change="importCollection($event)" >
+                </div>
                 <div class="cards-container" @dragover="$event.preventDefault()" @drop="dropCard($event)">
-                    <div v-for="(card, index) in yourCards" class="card-container"  @click="clickCard(card)">
+                    <div v-for="(card, index) in yourCards" class="card-container"  @click="clickCard(card)" @contextmenu="rightClickCard($event, index)">
                         <img :src="card.card_images[0].image_url_small" :alt="card.name" class="card">
                     </div>
                 </div>
@@ -49,6 +54,7 @@
         
         
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="javascript.js"></script>
 </body>

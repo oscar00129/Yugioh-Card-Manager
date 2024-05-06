@@ -41,6 +41,13 @@
     flex: 3;
 }
 
+.button {
+    background-color: coral;
+    color: white;
+    padding: .5rem 1rem .5rem 1rem;
+    display: inline-block;
+}
+
 .all-cards {
     background-color: brown;
     padding: 1rem;
@@ -74,4 +81,12 @@
 .card-container:hover {
     outline: .5rem solid white;
     outline-offset: -.5rem;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.button:active {
+    background-color: chocolate
 }

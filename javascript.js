@@ -21,6 +21,10 @@ const app = Vue.createApp({
         clickCard(card){
             this.cardViewing = card;
         },
+        rightClickCard(event, index){
+            this.yourCards.splice(index, 1);
+            event.preventDefault();
+        },
         searchCardAll(){
             if(this.searchTextAll == ""){
                 this.limit30DisplayedCards();
@@ -36,10 +40,25 @@ const app = Vue.createApp({
         },
         dragCard(card){
             this.draggedCard = card;
-            console.log(this.draggedCard);
         },
         dropCard(event){
             this.yourCards.push(this.draggedCard);
+        },
+        exportCollection(){
+            let yourCardsString = JSON.stringify(this.yourCards);
+            var blob = new Blob([yourCardsString], { type: "application/json" });
+            saveAs(blob, "datos.json");
+        },
+        importCollection(event){
+            let file = event.target.files[0];
+            let fr = new FileReader();
+
+            fr.onload = () => {
+                let content = fr.result;
+                let data = JSON.parse(content);
+                this.yourCards = data;
+            }
+            fr.readAsText(file);
         }
     }
 })
