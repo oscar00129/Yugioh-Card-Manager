@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="your-cards">
-                <h3>Your Cards</h3>
+                <h3>Your Cards ({{yourCards.length}})</h3>
                 <div>
                     <label for="txtNameYours">Card Name: </label>
                     <input type="text" name="txtNameYours" id="txtNameYours" placeholder="Search" v-model="searchTextYours" @input="searchCardYours()">
@@ -31,6 +31,17 @@
                     <label class="button" @click="exportCollection()">Export</label>
                     <label for="btnImport" class="button">Import</label>
                     <input id="btnImport" type="file" style="display: none;" accept=".json" @change="importCollection($event)" >
+                    <label class="button" @click="orderYourCards()">Order Cards</label>
+                </div>
+                <div>
+                    <details>
+                        <summary>Archetypes ({{getArchetypes(yourCards).length}})</summary>
+                        <div class="archetypes-container">
+                            <div class="archetype" v-for="archetype in getArchetypes(yourCards)">
+                                {{archetype}}
+                            </div>
+                        </div>
+                    </details>
                 </div>
                 <div class="cards-container" @dragover="$event.preventDefault()" @drop="dropCard($event)">
                     <div v-for="(card, index) in yourCards" class="card-container"  @click="clickCard(card)" @contextmenu="rightClickCard($event, index)">

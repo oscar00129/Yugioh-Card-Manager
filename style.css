@@ -54,6 +54,26 @@
     flex: 3;
 }
 
+.archetypes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .1rem;
+}
+
+.archetype {
+    background-color: black;
+    color: white;
+    border-radius: .2rem;
+    padding: .3rem;
+}
+
+.archetype:hover {
+    cursor: pointer;
+}
+
+.archetype:active {
+    background-color: gray;
+}
 
 
 .cards-container {
